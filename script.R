@@ -66,7 +66,10 @@ df3 <- df2 %>%
   mutate(
     dplyr::across(c("na38", "trans", "tp"), na_if, "Z")
   ) %>%
-  mutate(naf08 = na_if(naf08, "ZZZ"))
+  mutate(
+    naf08 = na_if(naf08, "ZZZ"),
+    aged = aged
+  )
 
 
 # Recodage des variables catégorielles ==========
@@ -109,19 +112,19 @@ fonction_de_stat_agregee(rnorm(10), "variance")
 
 fonction_de_stat_agregee(df2 %>%
                            filter(sexe == "Homme") %>%
-                           mutate(aged = as.numeric(aged)) %>%
+                           mutate(aged = aged) %>%
                            pull(aged))
 fonction_de_stat_agregee(df2 %>%
                            filter(sexe == "Femme") %>%
-                           mutate(aged = as.numeric(aged)) %>%
+                           mutate(aged = aged) %>%
                            pull(aged))
 fonction_de_stat_agregee(df2 %>%
                            filter(sexe == "Homme" & couple == "2") %>%
-                           mutate(aged = as.numeric(aged)) %>%
+                           mutate(aged = aged) %>%
                            pull(aged))
 fonction_de_stat_agregee(df2 %>%
                            filter(sexe == "Femme" & couple == "2") %>%
-                           mutate(aged = as.numeric(aged)) %>%
+                           mutate(aged = aged) %>%
                            pull(aged))
 
 # Graphiques ------------
@@ -130,10 +133,10 @@ fonction_de_stat_agregee(df2 %>%
 df2 %>%
   select(aged) %>%
   ggplot(.) +
-  geom_histogram(aes(x = 5 * floor(as.numeric(aged) / 5)), stat = "count")
+  geom_histogram(aes(x = 5 * floor(aged / 5)), stat = "count")
 
 ggplot(df2[as.numeric(df2$aged) > 50, c(3, 4)], aes(
-  x = as.numeric(aged),
+  x = aged,
   y = ..density.., fill = factor(decennie_a_partir_annee(as.numeric(aemm)))
 ), alpha = 0.2) +
   geom_histogram() # position = "dodge") + scale_fill_viridis_d()
@@ -147,8 +150,8 @@ ggplot(df %>%
          group_by(aged) %>%
          mutate(SH_sexe = SH_sexe / sum(SH_sexe)) %>%
          filter(sexe == 1)) +
-  geom_bar(aes(x = as.numeric(aged), y = SH_sexe), stat = "identity") +
-  geom_point(aes(x = as.numeric(aged), y = SH_sexe),
+  geom_bar(aes(x = aged, y = SH_sexe), stat = "identity") +
+  geom_point(aes(x = aged, y = SH_sexe),
              stat = "identity",
              color = "red"
   ) +
