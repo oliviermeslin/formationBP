@@ -40,12 +40,7 @@ fonction_de_stat_agregee <- function(a, b = "moyenne", ...) {
 # et que read_csv attend comme separateur des ,
 df <- readr::read_csv2(
   "individu_reg.csv",
-  col_names = c(
-    "region", "dept", "aemm", "aged", "anai", "catl", "cs1", "cs2", "cs3",
-    "couple", "na38", "naf08", "pnai12", "sexe", "surf", "tp",
-    "trans", "ur"
-  ),
-  skip = 1L
+  col_names = TRUE
 )
 
 # Retraitement des données ------------
