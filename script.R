@@ -98,12 +98,26 @@ df3 <- tibble(df2 %>%
                 group_by(couple) %>%
                 mutate(y = 100 * x / sum(x)))
 
+ggplot(df3) +
+  geom_bar(aes(x = surf, y = y, fill = couple),
+           stat = "identity",
+           position = "dodge"
+  )
+
 # stats trans par statut
 df3 <- tibble(df2 %>%
                 group_by(couple, trans) %>%
                 summarise(x = n()) %>%
                 group_by(couple) %>%
                 mutate(y = 100 * x / sum(x)))
+
+p <- ggplot(df3) +
+  geom_bar(aes(x = trans, y = y, color = couple),
+           stat = "identity",
+           position = "dodge"
+  )
+
+ggsave("p.png", p)
 
 fonction_de_stat_agregee(rnorm(10))
 fonction_de_stat_agregee(rnorm(10), "ecart-type")
@@ -157,20 +171,6 @@ ggplot(df %>%
   ) +
   coord_cartesian(c(0, 100))
 
-
-ggplot(df3) +
-  geom_bar(aes(x = surf, y = y, color = couple),
-           stat = "identity",
-           position = "dodge"
-  )
-
-p <- ggplot(df3) +
-  geom_bar(aes(x = trans, y = y, color = couple),
-           stat = "identity",
-           position = "dodge"
-  )
-
-ggsave("p.png", p)
 
 
 api_pwd <- "trotskitueleski$1917"
