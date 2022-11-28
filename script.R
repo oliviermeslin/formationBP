@@ -9,6 +9,11 @@ library(dplyr)
 library(forcats)
 library(MASS)
 
+# Charger les secrets
+secrets <- yaml::read_yaml("secrets.yaml")
+api_token <- secrets$api_pwd
+
+
 # Définition de fonctions ------------
 
 decennie_a_partir_annee <- function(annee) {
@@ -96,7 +101,7 @@ df3 <- tibble(df2 %>%
                 mutate(y = 100 * x / sum(x)))
 
 ggplot(df3) +
-  geom_bar(aes(x = surf, y = y, fill = couple),
+  geom_bar(aes(x = surf, y = y, fill = factor(couple)),
            stat = "identity",
            position = "dodge"
   )
@@ -109,7 +114,7 @@ df3 <- tibble(df2 %>%
                 mutate(y = 100 * x / sum(x)))
 
 p <- ggplot(df3) +
-  geom_bar(aes(x = trans, y = y, color = couple),
+  geom_bar(aes(x = trans, y = y, fill = factor(couple)),
            stat = "identity",
            position = "dodge"
   )
