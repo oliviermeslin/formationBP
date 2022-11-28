@@ -62,7 +62,7 @@ print(df2, 20)
 # Retraitement des valeurs manquantes ==========
 
 
-df3 <- df2 %>% 
+df2 <- df2 %>% 
   mutate(
     dplyr::across(c("na38", "trans", "tp"), na_if, "Z")
   ) %>%
@@ -74,8 +74,10 @@ df3 <- df2 %>%
 
 # Recodage des variables catégorielles ==========
 
-df2$sexe <- df2$sexe %>%
-  fct_recode(Homme = "1", Femme = "2")
+df2 <- df2 %>% 
+  mutate(
+    sexe = factor(sexe) %>% fct_recode(Homme = "1", Femme = "2")
+  )
 
 # Statistiques descriptives ------------
 
