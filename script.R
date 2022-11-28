@@ -174,9 +174,6 @@ ggplot(df %>%
   coord_cartesian(c(0, 100))
 
 
-
-api_pwd <- "trotskitueleski$1917"
-
 # Modélisation ------------
 
 
