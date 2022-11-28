@@ -1,13 +1,4 @@
-rm(list = ls())
 
-if (!require("ggplot2")) install.packages("ggplot2")
-if (!require("stringr")) install.packages("stringr")
-if (!require("dplyr")) install.packages("dplyr")
-if (!require("tidyverse")) install.packages("tidyverse")
-if (!require("MASS")) install.packages("MASS")
-
-
-library(tidyverse)
 library(dplyr)
 library(forcats)
 library(MASS)
@@ -28,7 +19,8 @@ api_token <- yaml::read_yaml("R/secrets.yaml")$JETON_API
 
 # j'importe les données avec read_csv2 parce que c'est un csv avec des ;
 # et que read_csv attend comme separateur des ,
-df <- arrow::read_parquet("individu_reg.parquet",
+df <- arrow::read_parquet(
+  "individu_reg.parquet",
   col_select  = c(
     "region", "aemm", "aged", "anai", "catl", "cs1", "cs2", "cs3",
     "couple", "na38", "naf08", "pnai12", "sexe", "surf", "tp",
