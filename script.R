@@ -62,10 +62,12 @@ print(df2, 20)
 # Retraitement des valeurs manquantes ==========
 
 
-df2[df2$na38 == "ZZ", "na38"] <- NA
-df2[df2$trans == "Z", "trans"] <- NA
-df2[df2$tp == "Z", "tp"] <- NA
-df2[endsWith(df2$naf08, "Z"), "naf08"] <- NA
+df3 <- df2 %>% 
+  mutate(
+    dplyr::across(c("na38", "trans", "tp"), na_if, "Z")
+  ) %>%
+  mutate(naf08 = na_if(naf08, "ZZZ"))
+
 
 # Recodage des variables catégorielles ==========
 
