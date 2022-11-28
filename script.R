@@ -167,11 +167,8 @@ ggplot(df %>%
          mutate(SH_sexe = SH_sexe / sum(SH_sexe)) %>%
          filter(sexe == 1)) +
   geom_bar(aes(x = aged, y = SH_sexe), stat = "identity") +
-  geom_point(aes(x = aged, y = SH_sexe),
-             stat = "identity",
-             color = "red"
-  ) +
-  coord_cartesian(c(0, 100))
+  coord_cartesian(c(0, 100)) + 
+  scale_y_continuous(labels = scales::percent_format())
 
 
 # Modélisation ------------
